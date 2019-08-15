@@ -43,9 +43,8 @@ def authors():
 
 @app.route('/author/<authors_last_name>')
 def author(authors_last_name):
-    author_finded = find_author(authors_last_name)
     return render_template('routing/author.html',
-                           author=author_finded)
+                           author=find_author(authors_last_name))
 
 def find_author(authors_last_name):
     for author in AUTHORS_INFO:
