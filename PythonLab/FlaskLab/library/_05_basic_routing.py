@@ -12,7 +12,7 @@ specify the desired dynamic portion by giving it a name and surrounding
 it between `<>`.
 """
 import json
-from flask import Flask, render_template
+from flask import Flask, render_template, abort
 
 app = Flask(__name__)
 
@@ -43,10 +43,20 @@ def authors():
 
 @app.route('/author/<authors_last_name>')
 def author(authors_last_name):
-    return render_template('routing/author.html',
-                           author=find_author(authors_last_name))
+    author_finded = find_author(authors_last_name)
+    if author_finded != False:
+        return render_template('routing/author.html', author=author_finded)
+    else:
+        abort(404)
 
 def find_author(authors_last_name):
     for author in AUTHORS_INFO:
         if author['last_name'] == authors_last_name:
             return author
+        else:
+            return False
+
+
+@app.errorhandler(404)
+def not_found(error):
+    return render_template('routing/404.html'), 404            

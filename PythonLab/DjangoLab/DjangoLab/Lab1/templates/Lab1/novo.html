@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body>
+        <h1>Cadastro</h1>
+        <form method="POST">
+            {%csrf_token%}
+            {{form}}
+
+            <button type="submit" value="Cadastrar">Cadastrar</button>
+        </form>
+    </body>    
+</html>
